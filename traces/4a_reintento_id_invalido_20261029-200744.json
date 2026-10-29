@@ -1,0 +1,94 @@
+{
+  "thread_id": "esc4a-20261029-200719",
+  "pregunta": "Mostrame el fragmento async-p7-c0 de la documentación.",
+  "escenario": "4a_reintento_id_invalido",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:07:44.414-03:00",
+  "fin": "2026-10-29T20:07:52.620-03:00",
+  "duracion_s": 8.21,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:07:46.080-03:00",
+      "pensamiento": null,
+      "herramienta": "obtener_fragmento",
+      "argumentos": {
+        "chunk_id": "async-p7-c0"
+      },
+      "tool_call_id": "toolu_01PzreJMmLox48bhvhxbunGp",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2101,
+        "output_tokens": 62,
+        "total_tokens": 2163
+      }
+    },
+    {
+      "n": 2,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:07:46.502-03:00",
+      "pensamiento": null,
+      "herramienta": "obtener_fragmento",
+      "argumentos": null,
+      "tool_call_id": "toolu_01PzreJMmLox48bhvhxbunGp",
+      "observacion": "ERROR: el fragmento 'async-p7-c0' no existe. IDs válidos del documento 'async': async-p1-c0, async-p1-c1, async-p1-c2.",
+      "tokens": null
+    },
+    {
+      "n": 3,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:07:48.673-03:00",
+      "pensamiento": "El ID `async-p7-c0` no existe. El documento `async` tiene `async-p1-c0`, `async-p1-c1` y `async-p1-c2`, así que pruebo con el primero.",
+      "herramienta": "obtener_fragmento",
+      "argumentos": {
+        "chunk_id": "async-p1-c0"
+      },
+      "tool_call_id": "toolu_01LaE4LJTay4E3UVw4xCm6tc",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2229,
+        "output_tokens": 298,
+        "total_tokens": 2527
+      }
+    },
+    {
+      "n": 4,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:07:48.894-03:00",
+      "pensamiento": null,
+      "herramienta": "obtener_fragmento",
+      "argumentos": null,
+      "tool_call_id": "toolu_01LaE4LJTay4E3UVw4xCm6tc",
+      "observacion": "[ID: async-p1-c0] fuente=data/async_http2/async.md | categoría=async_http2\n# Async Support\n\nHTTPX offers a standard synchronous API by default, but also gives you\nthe option of an async client if you need it.\n\nAsync is a concurrency model that is far more efficient than multi-threading,\nand can provide significant performance benefits and enable the use of\nlong-lived network connections such as WebSockets.\n\nIf you're working with an async web framework then you'll also want to use an\nasync client for sending outgoing HTTP requests.\n\n## Making Async requests\n\nTo make asynchronous requests, you'll need an `AsyncClient`.\n\n```pycon\n>>> async with httpx.AsyncClient() as client:\n...     r = await client.get('https://www.example.com/')\n...\n>>> r\n<Response [200 OK]>\n```\n\n!!! tip\n    Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.9+ with `python -m asyncio` to try this code interactively, as they support executing `async`/`await` expressions in the console.\n\n## API Differences\n\nIf you're using an async client then there are a few bits of API that\nuse async methods.\n\n### Making requests\n\nThe request methods are all async, so you should use `response = await client.get(...)` style for all of the following:\n\n* `AsyncClient.get(url, ...)`\n* `AsyncClient.options(url, ...)`\n* `AsyncClient.head(url, ...)`\n* `AsyncClient.post(url, ...)`\n* `AsyncClient.put(url, ...)`\n* `AsyncClient.patch(url, ...)`\n* `AsyncClient.delete(url, ...)`\n* `AsyncClient.request(method, url, ...)`\n* `AsyncClient.send(request, ...)`\n\n### Opening and closing clients\n\nUse `async with httpx.AsyncClient()` if you want a context-managed client...\n\n```python\nasync with httpx.AsyncClient() as client:\n    ...\n```\n\n!!! warning\n    In order to get the most benefit from connection pooling, make sure you're not instantiating multiple client instances - for example by using `async with` inside a \"hot loop\". This can be achieved either by having a single scoped client that's passed throughout wherever it's needed, or by having a single global client instance.\n\nAlternatively, use `await client.aclose()` if you want to close a client explicitly:\n\n```python\nclient = httpx.AsyncClient()\n...\nawait client.aclose()\n```\n\n### Streaming responses\n\nThe `AsyncClient.stream(method, url, ...)` method is an async context block.\n\n```pycon\n>>> client = httpx.AsyncClient()\n>>> async with client.stream('GET', 'https://www.example.com/') as response:\n...     async for chunk in response.aiter_bytes():\n...         ...",
+      "tokens": null
+    },
+    {
+      "n": 5,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:07:52.619-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 3445,
+        "output_tokens": 438,
+        "total_tokens": 3883
+      }
+    }
+  ],
+  "respuesta_final": "No existe `async-p7-c0` en la base: el documento `async` solo tiene tres fragmentos (`async-p1-c0`, `async-p1-c1` y `async-p1-c2`). Como alternativa te muestro `async-p1-c0`, que es el fragmento inicial de la página de soporte async [async-p1-c0].\n\nTrata de cómo usar el cliente asíncrono:\n\n- Para hacer requests necesitás un `AsyncClient` y `await` en cada método (`get`, `post`, `request`, `send`, etc.).\n- Lo recomendado es usar `async with httpx.AsyncClient() as client:`. Si preferís cerrarlo a mano, usás `await client.aclose()`.\n- Para hacer streaming, `client.stream(...)` es un bloque `async with`, y adentro se itera con `async for chunk in response.aiter_bytes()`.\n- Hay un warning importante: para aprovechar el connection pooling no conviene crear un cliente nuevo dentro de un bucle. Mejor compartir un único cliente con alcance acotado o global.\n\nSi necesitás el contenido de otro fragmento, pasame el ID exacto de los que existen (`async-p1-c1` o `async-p1-c2`) o decime qué tema buscás y lo busco.",
+  "herramientas_usadas": [
+    "obtener_fragmento",
+    "obtener_fragmento"
+  ],
+  "tokens_totales": {
+    "input_tokens": 7775,
+    "output_tokens": 798,
+    "total_tokens": 8573
+  }
+}

@@ -1,0 +1,41 @@
+==============================================================================
+TRAZA ReAct | escenario: 1_usa_herramienta | thread_id: esc1-20261029-200719
+modelo: claude-haiku-5-5 | recursion_limit: 10 | inicio: 2026-10-29T20:07:19.421-03:00
+==============================================================================
+USUARIO: ¿Cómo hago requests asíncronas con httpx?
+
+[20:07:20.761] ACCIÓN: buscar_documentacion({"query": "AsyncClient usage async requests", "limit": 3})
+           tokens: in=2097 out=84
+[20:07:30.904] OBSERVACIÓN (buscar_documentacion): 3 fragmento(s) relevante(s) para 'AsyncClient usage async requests':  [ID: http2-p1-c1] similitud=0.54 | fuente=data/async_http2/http2.md ```  And then instantiating a client with HTTP/2 support enabled:  ```python client = httpx.AsyncClient(http2=True) ... ```  You can also instantiate a client as a context manager, to ensure that all HTTP connections are nicely scoped, and will be closed once th...
+[20:07:32.265] ACCIÓN: obtener_fragmento({"chunk_id": "async-p1-c0"})
+           tokens: in=3124 out=100
+[20:07:32.488] OBSERVACIÓN (obtener_fragmento): [ID: async-p1-c0] fuente=data/async_http2/async.md | categoría=async_http2 # Async Support  HTTPX offers a standard synchronous API by default, but also gives you the option of an async client if you need it.  Async is a concurrency model that is far more efficient than multi-threading, and can provide significant performance benefits and enable the use of long-lived network connections such as We...
+[20:07:35.440] RESPUESTA FINAL (sin más herramientas)
+           tokens: in=4142 out=573
+
+RESPUESTA: Para hacer requests asíncronas en httpx usás `httpx.AsyncClient` junto con `async`/`await` [async-p1-c0].
+
+```python
+import asyncio
+import httpx
+
+async def main():
+    async with httpx.AsyncClient() as client:
+        r = await client.get("https://www.example.com/")
+        print(r.status_code)
+
+asyncio.run(main())
+```
+
+Algunos puntos clave:
+
+- **Métodos async:** `get`, `post`, `put`, `patch`, `delete`, `head`, `options`, `request` y `send` se llaman con `await` [async-p1-c0].
+- **Context manager:** `async with httpx.AsyncClient()` cierra las conexiones al salir del bloque. Si preferís cerrarlo a mano, usá `await client.aclose()` [async-p1-c0].
+- **Reutilizá el cliente:** para aprovechar el pool de conexiones, no crees un cliente dentro de un bucle caliente; usá uno solo y pasalo por donde haga falta [async-p1-c0].
+- **Streaming:** `client.stream(...)` es un bloque `async with`, y leés el cuerpo con `async for chunk in response.aiter_bytes()` [async-p1-c0].
+- **Concurrencia:** como las requests son asíncronas, podés lanzar varias a la vez con `asyncio.gather`, que es donde el modelo async más conviene.
+- **Backends:** httpx soporta `asyncio` y `trio`, y detecta automáticamente cuál usar [async-p1-c2].
+- **HTTP/2:** podés activarlo con `httpx.AsyncClient(http2=True)` [http2-p1-c1].
+
+ESTADO: completo | DURACIÓN: 16.02 s | HERRAMIENTAS EJECUTADAS: buscar_documentacion, obtener_fragmento
+TOKENS TOTALES: in=9363 out=757 total=10120

@@ -1,0 +1,29 @@
+==============================================================================
+TRAZA ReAct | escenario: 4a_reintento_id_invalido | thread_id: esc4a-20261029-200719
+modelo: claude-haiku-5-5 | recursion_limit: 10 | inicio: 2026-10-29T20:07:44.414-03:00
+==============================================================================
+USUARIO: Mostrame el fragmento async-p7-c0 de la documentación.
+
+[20:07:46.080] ACCIÓN: obtener_fragmento({"chunk_id": "async-p7-c0"})
+           tokens: in=2101 out=62
+[20:07:46.502] OBSERVACIÓN (obtener_fragmento): ERROR: el fragmento 'async-p7-c0' no existe. IDs válidos del documento 'async': async-p1-c0, async-p1-c1, async-p1-c2.
+[20:07:48.673] PENSAMIENTO: El ID `async-p7-c0` no existe. El documento `async` tiene `async-p1-c0`, `async-p1-c1` y `async-p1-c2`, así que pruebo con el primero.
+[20:07:48.673] ACCIÓN: obtener_fragmento({"chunk_id": "async-p1-c0"})
+           tokens: in=2229 out=298
+[20:07:48.894] OBSERVACIÓN (obtener_fragmento): [ID: async-p1-c0] fuente=data/async_http2/async.md | categoría=async_http2 # Async Support  HTTPX offers a standard synchronous API by default, but also gives you the option of an async client if you need it.  Async is a concurrency model that is far more efficient than multi-threading, and can provide significant performance benefits and enable the use of long-lived network connections such as We...
+[20:07:52.619] RESPUESTA FINAL (sin más herramientas)
+           tokens: in=3445 out=438
+
+RESPUESTA: No existe `async-p7-c0` en la base: el documento `async` solo tiene tres fragmentos (`async-p1-c0`, `async-p1-c1` y `async-p1-c2`). Como alternativa te muestro `async-p1-c0`, que es el fragmento inicial de la página de soporte async [async-p1-c0].
+
+Trata de cómo usar el cliente asíncrono:
+
+- Para hacer requests necesitás un `AsyncClient` y `await` en cada método (`get`, `post`, `request`, `send`, etc.).
+- Lo recomendado es usar `async with httpx.AsyncClient() as client:`. Si preferís cerrarlo a mano, usás `await client.aclose()`.
+- Para hacer streaming, `client.stream(...)` es un bloque `async with`, y adentro se itera con `async for chunk in response.aiter_bytes()`.
+- Hay un warning importante: para aprovechar el connection pooling no conviene crear un cliente nuevo dentro de un bucle. Mejor compartir un único cliente con alcance acotado o global.
+
+Si necesitás el contenido de otro fragmento, pasame el ID exacto de los que existen (`async-p1-c1` o `async-p1-c2`) o decime qué tema buscás y lo busco.
+
+ESTADO: completo | DURACIÓN: 8.21 s | HERRAMIENTAS EJECUTADAS: obtener_fragmento, obtener_fragmento
+TOKENS TOTALES: in=7775 out=798 total=8573

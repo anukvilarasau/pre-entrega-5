@@ -1,0 +1,33 @@
+==============================================================================
+TRAZA ReAct | escenario: 5a_memoria_pregunta_1 | thread_id: memoria-20261029-200719
+modelo: claude-haiku-5-5 | recursion_limit: 10 | inicio: 2026-10-29T20:07:58.576-03:00
+==============================================================================
+USUARIO: ¿Qué es un AsyncClient en httpx?
+
+[20:07:59.768] PENSAMIENTO: Voy a buscar en la documentación qué es AsyncClient.
+[20:07:59.768] ACCIÓN: buscar_documentacion({"query": "AsyncClient usage async HTTP requests", "limit": 3})
+           tokens: in=2095 out=111
+[20:08:00.023] OBSERVACIÓN (buscar_documentacion): 3 fragmento(s) relevante(s) para 'AsyncClient usage async HTTP requests':  [ID: http2-p1-c1] similitud=0.62 | fuente=data/async_http2/http2.md ```  And then instantiating a client with HTTP/2 support enabled:  ```python client = httpx.AsyncClient(http2=True) ... ```  You can also instantiate a client as a context manager, to ensure that all HTTP connections are nicely scoped, and will be closed on...
+[20:08:02.597] RESPUESTA FINAL (sin más herramientas)
+           tokens: in=3116 out=457
+
+RESPUESTA: Un `AsyncClient` es la versión asíncrona del cliente de httpx. Lo usás cuando querés hacer requests HTTP sin bloquear, por ejemplo desde un framework async o cuando necesitás muchas requests concurrentes. [async-p1-c0]
+
+Se usa con `async with` y `await` para cada request:
+
+```python
+import httpx
+
+async with httpx.AsyncClient() as client:
+    r = await client.get("https://www.example.com/")
+    print(r)  # <Response [200 OK]>
+```
+
+Usar el cliente como context manager hace que todas las conexiones se cierren al salir del bloque. [http2-p1-c1]
+
+Además, `AsyncClient` soporta HTTP/2 igual que `Client` (con `httpx.AsyncClient(http2=True)`), y suele ser más útil en contextos async cuando hacés muchas requests concurrentes. [http2-p1-c1]
+
+Si necesitás autenticación personalizada que haga I/O o use primitivas de concurrencia, `AsyncClient` usa `.async_auth_flow()`, mientras que `httpx.Client` usa `.sync_auth_flow()`. [authentication-p1-c3]
+
+ESTADO: completo | DURACIÓN: 4.02 s | HERRAMIENTAS EJECUTADAS: buscar_documentacion
+TOKENS TOTALES: in=5211 out=568 total=5779

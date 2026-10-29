@@ -1,0 +1,35 @@
+{
+  "thread_id": "memoria-20261029-200719",
+  "pregunta": "Recordame: ¿de qué clase de httpx estábamos hablando y qué te pregunté recién?",
+  "escenario": "5b_memoria_tras_reiniciar_mismo_thread",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:08:18.629-03:00",
+  "fin": "2026-10-29T20:08:20.318-03:00",
+  "duracion_s": 1.69,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:08:20.318-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 5843,
+        "output_tokens": 199,
+        "total_tokens": 6042
+      }
+    }
+  ],
+  "respuesta_final": "Estábamos hablando de `httpx.AsyncClient`, la versión asíncrona del cliente de httpx.\n\nTu última pregunta fue \"¿Y cómo se usa?\". Te expliqué el uso básico con `async with` y `await`, la configuración con `http2=True` o un transporte propio (`httpx.AsyncHTTPTransport`), y los entornos soportados (`asyncio` y `trio`). No encontré en la documentación indexada nada sobre requests concurrentes con `asyncio.gather` ni sobre cerrar el cliente con `aclose()`.",
+  "herramientas_usadas": [],
+  "tokens_totales": {
+    "input_tokens": 5843,
+    "output_tokens": 199,
+    "total_tokens": 6042
+  }
+}

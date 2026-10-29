@@ -1,0 +1,35 @@
+{
+  "thread_id": "esc2-20261029-200719",
+  "pregunta": "¡Hola! ¿Quién sos y en qué me podés ayudar?",
+  "escenario": "2_sin_herramienta",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:07:35.443-03:00",
+  "fin": "2026-10-29T20:07:39.314-03:00",
+  "duracion_s": 3.87,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:07:39.313-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2103,
+        "output_tokens": 240,
+        "total_tokens": 2343
+      }
+    }
+  ],
+  "respuesta_final": "¡Hola! Soy un asistente técnico especializado en **httpx**, la librería HTTP para Python. Respondo preguntas usando su documentación oficial.\n\nTe puedo ayudar con cosas como:\n\n- **Uso básico**: hacer requests GET, POST, enviar headers, parámetros y datos.\n- **Clientes**: cuándo usar `Client` o `AsyncClient` y cómo manejarlos.\n- **Async**: escribir código asíncrono con httpx.\n- **Timeouts, proxies y autenticación**.\n- **HTTP/2, streaming y manejo de excepciones**.\n\nContame qué estás intentando hacer con httpx y lo vemos paso a paso.",
+  "herramientas_usadas": [],
+  "tokens_totales": {
+    "input_tokens": 2103,
+    "output_tokens": 240,
+    "total_tokens": 2343
+  }
+}

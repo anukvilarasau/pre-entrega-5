@@ -1,0 +1,23 @@
+==============================================================================
+TRAZA ReAct | escenario: 2_sin_herramienta | thread_id: esc2-20261029-200719
+modelo: claude-haiku-5-5 | recursion_limit: 10 | inicio: 2026-10-29T20:07:35.443-03:00
+==============================================================================
+USUARIO: ¡Hola! ¿Quién sos y en qué me podés ayudar?
+
+[20:07:39.313] RESPUESTA FINAL (sin más herramientas)
+           tokens: in=2103 out=240
+
+RESPUESTA: ¡Hola! Soy un asistente técnico especializado en **httpx**, la librería HTTP para Python. Respondo preguntas usando su documentación oficial.
+
+Te puedo ayudar con cosas como:
+
+- **Uso básico**: hacer requests GET, POST, enviar headers, parámetros y datos.
+- **Clientes**: cuándo usar `Client` o `AsyncClient` y cómo manejarlos.
+- **Async**: escribir código asíncrono con httpx.
+- **Timeouts, proxies y autenticación**.
+- **HTTP/2, streaming y manejo de excepciones**.
+
+Contame qué estás intentando hacer con httpx y lo vemos paso a paso.
+
+ESTADO: completo | DURACIÓN: 3.87 s | HERRAMIENTAS EJECUTADAS: ninguna
+TOKENS TOTALES: in=2103 out=240 total=2343

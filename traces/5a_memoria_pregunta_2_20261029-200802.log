@@ -1,0 +1,50 @@
+==============================================================================
+TRAZA ReAct | escenario: 5a_memoria_pregunta_2 | thread_id: memoria-20261029-200719
+modelo: claude-haiku-5-5 | recursion_limit: 10 | inicio: 2026-10-29T20:08:02.601-03:00
+==============================================================================
+USUARIO: ¿Y cómo se usa?
+
+[20:08:04.405] PENSAMIENTO: Voy a buscar ejemplos de uso más completos, como requests concurrentes y cierre manual del cliente.
+[20:08:04.405] ACCIÓN: buscar_documentacion({"query": "AsyncClient concurrent requests asyncio gather example", "limit": 3})
+           tokens: in=3588 out=269
+[20:08:04.405] ACCIÓN: buscar_documentacion({"query": "AsyncClient close without context manager aclose", "limit": 3})
+[20:08:05.190] OBSERVACIÓN (buscar_documentacion): 3 fragmento(s) relevante(s) para 'AsyncClient concurrent requests asyncio gather example':  [ID: authentication-p1-c3] similitud=0.66 | fuente=data/avanzado/authentication.md ```  If you _do_ need to perform I/O other than HTTP requests, such as accessing a disk-based cache, or you need to use concurrency primitives, such as locks, then you should override `.sync_auth_flow()` and `.async_auth_flow...
+[20:08:05.190] OBSERVACIÓN (buscar_documentacion): INFORMACIÓN INCOMPLETA: ningún fragmento es relevante para 'AsyncClient close without context manager aclose' (mejor similitud 0.34, umbral 0.45). Probá reformular la consulta en inglés con otros términos técnicos, o pedile al usuario que aclare qué necesita.
+[20:08:06.864] ACCIÓN: buscar_documentacion({"query": "close the async client aclose", "limit": 2})
+           tokens: in=4962 out=199
+[20:08:07.115] OBSERVACIÓN (buscar_documentacion): INFORMACIÓN INCOMPLETA: ningún fragmento es relevante para 'close the async client aclose' (mejor similitud 0.36, umbral 0.45). Probá reformular la consulta en inglés con otros términos técnicos, o pedile al usuario que aclare qué necesita.
+[20:08:10.211] RESPUESTA FINAL (sin más herramientas)
+           tokens: in=5268 out=536
+
+RESPUESTA: El uso básico de `AsyncClient` es siempre dentro de una corrutina `async def`, creando el cliente con `async with` y llamando a los métodos con `await`:
+
+```python
+import asyncio
+import httpx
+
+async def main():
+    async with httpx.AsyncClient() as client:
+        r = await client.get("https://www.example.com/")
+        print(r.status_code)
+        print(r.text[:100])
+
+asyncio.run(main())
+```
+
+Los métodos son los mismos que en `Client` (`get`, `post`, `put`, `delete`, etc.), pero cada uno se espera con `await`. [async-p1-c0]
+
+**Configuración:** podés pasarle los mismos argumentos que al cliente síncrono, como `http2=True` o un transporte propio. Si creás el transporte a mano, en la versión async tenés que usar `httpx.AsyncHTTPTransport`:
+
+```python
+transport = httpx.AsyncHTTPTransport(retries=1)
+async with httpx.AsyncClient(transport=transport) as client:
+    ...
+```
+[async-p1-c2]
+
+**Entornos:** httpx soporta `asyncio` y `trio`, y detecta automáticamente cuál usar. [async-p1-c2]
+
+No encontré en la documentación indexada ejemplos de requests concurrentes con `asyncio.gather` ni de cerrar el cliente manualmente con `aclose()`, así que no te puedo confirmar esos detalles desde la fuente. Si necesitás eso, podés consultar la documentación oficial de httpx o reformular la pregunta con más contexto.
+
+ESTADO: completo | DURACIÓN: 7.61 s | HERRAMIENTAS EJECUTADAS: buscar_documentacion, buscar_documentacion, buscar_documentacion
+TOKENS TOTALES: in=13818 out=1004 total=14822

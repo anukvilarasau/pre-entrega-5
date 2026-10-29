@@ -1,0 +1,184 @@
+{
+  "thread_id": "esc6-20261029-200719",
+  "pregunta": "Comparame en detalle cómo se configuran en httpx los proxies, la autenticación, los timeouts y HTTP/2.",
+  "escenario": "6_recursion_limit",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 3,
+  "inicio": "2026-10-29T20:08:10.213-03:00",
+  "fin": "2026-10-29T20:08:16.874-03:00",
+  "duracion_s": 6.66,
+  "estado": "cortado_por_recursion_limit",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:13.637-03:00",
+      "pensamiento": "Voy a buscar en paralelo la documentación de proxies, autenticación, timeouts y HTTP/2, porque son consultas independientes.",
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "configure proxies in httpx client proxy argument",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01KRdZ2m95v7nV1uNFbn2Aui",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2120,
+        "output_tokens": 453,
+        "total_tokens": 2573
+      }
+    },
+    {
+      "n": 2,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:13.637-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "authentication auth parameter httpx basic digest custom auth",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01FSUggsXwCUiQbjV5JejsAr",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 3,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:13.637-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "set timeouts connect read write pool httpx Timeout",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01BWjQG1LF3fagVgTrYVGZK7",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 4,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:13.637-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "enable HTTP/2 http2=True httpx requires h2 package",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01RnirUqA7qsXe8QHhkt6yKa",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 5,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:14.443-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01KRdZ2m95v7nV1uNFbn2Aui",
+      "observacion": "3 fragmento(s) relevante(s) para 'configure proxies in httpx client proxy argument':\n\n[ID: proxies-p1-c0] similitud=0.57 | fuente=data/avanzado/proxies.md\nHTTPX supports setting up [HTTP proxies](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) via the `proxy` parameter to be passed on client initialization or top-level API functions like `httpx.get(..., proxy=...)`.\n\n<div align=\"center\">\n    <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Open_proxy_h2g2bob.svg/480px-Open_proxy_h2g2bob.svg.png\"/>\n    <figcaption><em>Diagram of how a proxy works (source: Wikipedia). The left hand side \"Internet\" blob may be your HTTPX client requesting <code>example.com</code> through a proxy.</em></figcaption>\n</div>\n\n## HTTP Proxies\n\nTo route all traffic (HTTP and HTTPS) to a proxy located at `http://localhost:8030`, pass the...\n\n[ID: environment_variables-p2-c0] similitud=0.55 | fuente=data/referencia/environment_variables.json\n# Environment Variables\n\n## Proxies\n\nThe environment variables documented below are used as a convention by various HTTP tooling, including:\n\n* [cURL](https://github.com/curl/curl/blob/master/docs/MANUAL.md#environment-variables)\n* [requests](https://github.com/psf/requests/blob/master/docs/user/advanced.rst#proxies)\n\nFor more information on using proxies in HTTPX, see [HTTP Proxying](advanced/proxies.md#http-proxying).\n\n### `HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY`\n\nValid values: A URL to a proxy\n\n`HTTP_PROXY`, `HTTPS_PROXY`, `ALL_PROXY` set the proxy to be used for `http`, `https`, or all requests respectively.\n\n```bash\nexport HTTP_PROXY=http://my-external-proxy.com:1234\n\n# This request wil...\n\n[ID: transports-p1-c6] similitud=0.55 | fuente=data/avanzado/transports.md\n```\n\nProxy all requests on port 1234...\n\n```python\nmounts = {\n    \"all://*:1234\": httpx.HTTPTransport(proxy=\"http://localhost:8030\"),\n}\n```\n\n### No-proxy support\n\nIt is also possible to define requests that _shouldn't_ be routed through the transport.\n\nTo do so, pass `None` as the proxy URL. For example...\n\n```python\nmounts = {\n    # Route requests through a proxy by default...\n    \"all://\": httpx.HTTPTransport(proxy=\"http://localhost:8031\"),\n    # Except those for \"example.com\".\n    \"all://example.com\": None,\n}\n```\n\n### Complex configuration example\n\nYou can combine the routing features outlined above to build complex proxy routing configurations. For example...\n\n```python\nmounts = {\n    # ...",
+      "tokens": null
+    },
+    {
+      "n": 6,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:14.443-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01FSUggsXwCUiQbjV5JejsAr",
+      "observacion": "3 fragmento(s) relevante(s) para 'authentication auth parameter httpx basic digest custom auth':\n\n[ID: quickstart-p1-c6] similitud=0.56 | fuente=data/primeros_pasos/quickstart.md\n```\n\nYou can also disable the timeout behavior completely...\n\n```pycon\n>>> httpx.get('https://github.com/', timeout=None)\n```\n\nFor advanced timeout management, see [Timeout fine-tuning](advanced/timeouts.md#fine-tuning-the-configuration).\n\n## Authentication\n\nHTTPX supports Basic and Digest HTTP authentication.\n\nTo provide Basic authentication credentials, pass a 2-tuple of\nplaintext `str` or `bytes` objects as the `auth` argument to the request\nfunctions:\n\n```pycon\n>>> httpx.get(\"https://example.com\", auth=(\"my_user\", \"password123\"))\n```\n\nTo provide credentials for Digest authentication you'll need to instantiate\na `DigestAuth` object with the plaintext username and password as arguments.\nTh...\n\n[ID: authentication-p1-c0] similitud=0.53 | fuente=data/avanzado/authentication.md\nAuthentication can either be included on a per-request basis...\n\n```pycon\n>>> auth = httpx.BasicAuth(username=\"username\", password=\"secret\")\n>>> client = httpx.Client()\n>>> response = client.get(\"https://www.example.com/\", auth=auth)\n```\n\nOr configured on the client instance, ensuring that all outgoing requests will include authentication credentials...\n\n```pycon\n>>> auth = httpx.BasicAuth(username=\"username\", password=\"secret\")\n>>> client = httpx.Client(auth=auth)\n>>> response = client.get(\"https://www.example.com/\")\n```\n\n## Basic authentication\n\nHTTP basic authentication is an unencrypted authentication scheme that uses a simple encoding of the username and password in the request `Authori...\n\n[ID: authentication-p1-c2] similitud=0.49 | fuente=data/avanzado/authentication.md\n```\n\nCustom authentication classes are designed to not perform any I/O, so that they may be used with both sync and async client instances. If you are implementing an authentication scheme that requires the request body, then you need to indicate this on the class using a `requires_request_body` property.\n\nYou will then be able to access `request.content` inside the `.auth_flow()` method.\n\n```python\nclass MyCustomAuth(httpx.Auth):\n    requires_request_body = True\n\n    def __init__(self, token):\n        self.token = token\n\n    def auth_flow(self, request):\n      response = yield request\n      if response.status_code == 401:\n          # If the server issues a 401 response then resend the reque...",
+      "tokens": null
+    },
+    {
+      "n": 7,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:14.443-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01BWjQG1LF3fagVgTrYVGZK7",
+      "observacion": "3 fragmento(s) relevante(s) para 'set timeouts connect read write pool httpx Timeout':\n\n[ID: timeouts-p1-c1] similitud=0.73 | fuente=data/avanzado/timeouts.md\n```\n\n## Fine tuning the configuration\n\nHTTPX also allows you to specify the timeout behavior in more fine grained detail.\n\nThere are four different types of timeouts that may occur. These are **connect**,\n**read**, **write**, and **pool** timeouts.\n\n* The **connect** timeout specifies the maximum amount of time to wait until\na socket connection to the requested host is established. If HTTPX is unable to connect\nwithin this time frame, a `ConnectTimeout` exception is raised.\n* The **read** timeout specifies the maximum duration to wait for a chunk of\ndata to be received (for example, a chunk of the response body). If HTTPX is\nunable to receive data within this time frame, a `ReadTimeout` exce...\n\n[ID: timeouts-p1-c0] similitud=0.60 | fuente=data/avanzado/timeouts.md\nHTTPX is careful to enforce timeouts everywhere by default.\n\nThe default behavior is to raise a `TimeoutException` after 5 seconds of\nnetwork inactivity.\n\n## Setting and disabling timeouts\n\nYou can set timeouts for an individual request:\n\n```python\n# Using the top-level API:\nhttpx.get('http://example.com/api/v1/example', timeout=10.0)\n\n# Using a client instance:\nwith httpx.Client() as client:\n    client.get(\"http://example.com/api/v1/example\", timeout=10.0)\n```\n\nOr disable timeouts for an individual request:\n\n```python\n# Using the top-level API:\nhttpx.get('http://example.com/api/v1/example', timeout=None)\n\n# Using a client instance:\nwith httpx.Client() as client:\n    client.get(\"http://examp...\n\n[ID: exceptions-p1-c0] similitud=0.51 | fuente=data/referencia/exceptions.md\n# Exceptions\n\nThis page lists exceptions that may be raised when using HTTPX.\n\nFor an overview of how to work with HTTPX exceptions, see [Exceptions (Quickstart)](quickstart.md#exceptions).\n\n## The exception hierarchy\n\n* HTTPError\n    * RequestError\n        * TransportError\n            * TimeoutException\n                * ConnectTimeout\n                * ReadTimeout\n                * WriteTimeout\n                * PoolTimeout\n            * NetworkError\n                * ConnectError\n                * ReadError\n                * WriteError\n                * CloseError\n            * ProtocolError\n                * LocalProtocolError\n                * RemoteProtocolError\n            * ProxyErro...",
+      "tokens": null
+    },
+    {
+      "n": 8,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:14.443-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01RnirUqA7qsXe8QHhkt6yKa",
+      "observacion": "3 fragmento(s) relevante(s) para 'enable HTTP/2 http2=True httpx requires h2 package':\n\n[ID: index-p1-c3] similitud=0.62 | fuente=data/primeros_pasos/index.md\n```\n\nOr, to include the optional HTTP/2 support, use:\n\n```shell\n$ pip install httpx[http2]\n```\n\nTo include the optional brotli and zstandard decoders support, use:\n\n```shell\n$ pip install httpx[brotli,zstd]\n```\n\nHTTPX requires Python 3.9+\n\n[sync-support]: https://github.com/encode/httpx/issues/572\n\n[ID: http2-p1-c0] similitud=0.55 | fuente=data/async_http2/http2.md\n# HTTP/2\n\nHTTP/2 is a major new iteration of the HTTP protocol, that provides a far more\nefficient transport, with potential performance benefits. HTTP/2 does not change\nthe core semantics of the request or response, but alters the way that data is\nsent to and from the server.\n\nRather than the text format that HTTP/1.1 uses, HTTP/2 is a binary format.\nThe binary format provides full request and response multiplexing, and efficient\ncompression of HTTP headers. The stream multiplexing means that where HTTP/1.1\nrequires one TCP stream for each concurrent request, HTTP/2 allows a single TCP\nstream to handle multiple concurrent requests.\n\nHTTP/2 also provides support for functionality such as res...\n\n[ID: index-p1-c2] similitud=0.52 | fuente=data/primeros_pasos/index.md\n## Dependencies\n\nThe HTTPX project relies on these excellent libraries:\n\n* `httpcore` - The underlying transport implementation for `httpx`.\n  * `h11` - HTTP/1.1 support.\n* `certifi` - SSL certificates.\n* `idna` - Internationalized domain name support.\n* `sniffio` - Async library autodetection.\n\nAs well as these optional installs:\n\n* `h2` - HTTP/2 support. *(Optional, with `httpx[http2]`)*\n* `socksio` - SOCKS proxy support. *(Optional, with `httpx[socks]`)*\n* `rich` - Rich terminal support. *(Optional, with `httpx[cli]`)*\n* `click` - Command line client support. *(Optional, with `httpx[cli]`)*\n* `brotli` or `brotlicffi` - Decoding for \"brotli\" compressed responses. *(Optional, with `httpx[br...",
+      "tokens": null
+    },
+    {
+      "n": 9,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:16.869-03:00",
+      "pensamiento": "Ya tengo el panorama general. Ahora busco el detalle de HTTP/2 (cómo activarlo en el cliente) y leo completos los fragmentos de proxies y timeouts.",
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "http2=True client instance response http_version HTTP/2 example",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01UUUAKiCntnaDzak18RmfhX",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 6360,
+        "output_tokens": 448,
+        "total_tokens": 6808
+      }
+    },
+    {
+      "n": 10,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:16.869-03:00",
+      "pensamiento": null,
+      "herramienta": "obtener_fragmento",
+      "argumentos": {
+        "chunk_id": "proxies-p1-c0"
+      },
+      "tool_call_id": "toolu_01UgCcquKZEArbFCDyVXSdKg",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 11,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:16.869-03:00",
+      "pensamiento": null,
+      "herramienta": "obtener_fragmento",
+      "argumentos": {
+        "chunk_id": "timeouts-p1-c1"
+      },
+      "tool_call_id": "toolu_01RvZhGzpLvfKyPtSTNcM1mc",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 12,
+      "tipo": "corte_recursion_limit",
+      "timestamp": "2026-10-29T20:08:16.874-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": "Me detuve de forma controlada: alcancé el límite de 3 pasos (recursion_limit) antes de terminar. Probá con una pregunta más concreta.",
+      "tokens": null
+    }
+  ],
+  "respuesta_final": "Me detuve de forma controlada: alcancé el límite de 3 pasos (recursion_limit) antes de terminar. Probá con una pregunta más concreta.",
+  "herramientas_usadas": [
+    "buscar_documentacion",
+    "buscar_documentacion",
+    "buscar_documentacion",
+    "buscar_documentacion"
+  ],
+  "tokens_totales": {
+    "input_tokens": 8480,
+    "output_tokens": 901,
+    "total_tokens": 9381
+  }
+}

@@ -1,0 +1,17 @@
+# Grafo del agente y persistencia (checkpointer SQLite asíncrono)
+langgraph==1.2.18
+langgraph-checkpoint==4.3.1
+langgraph-checkpoint-sqlite==3.1.2
+aiosqlite==0.22.1
+# LLM: Claude vía LangChain
+langchain-core==1.7.3
+langchain-anthropic==1.7.7
+anthropic==2.3.0
+# RAG de la Pre-entrega 4: Pinecone + embeddings locales (all-MiniLM-L6-v2)
+pinecone==7.3.0
+langchain-huggingface==1.2.3
+sentence-transformers==6.2.0
+torch==2.15.0
+# Validación y configuración
+pydantic==2.14.2
+python-dotenv==1.2.4

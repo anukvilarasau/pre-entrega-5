@@ -1,0 +1,35 @@
+{
+  "thread_id": "otro-20261029-200719",
+  "pregunta": "Recordame: ¿de qué clase de httpx estábamos hablando y qué te pregunté recién?",
+  "escenario": "5c_memoria_otro_thread",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:08:21.872-03:00",
+  "fin": "2026-10-29T20:08:23.684-03:00",
+  "duracion_s": 1.81,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:08:23.684-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2112,
+        "output_tokens": 186,
+        "total_tokens": 2298
+      }
+    }
+  ],
+  "respuesta_final": "No tengo nada registrado de una conversación anterior: este es el primer mensaje que recibo en este chat. Así que no sé qué clase de httpx estábamos viendo ni qué me preguntaste antes.\n\nSi me contás de qué querés hablar, por ejemplo `Client`, `AsyncClient`, timeouts o proxies, busco en la documentación oficial de httpx y te respondo con las referencias de los fragmentos.",
+  "herramientas_usadas": [],
+  "tokens_totales": {
+    "input_tokens": 2112,
+    "output_tokens": 186,
+    "total_tokens": 2298
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "thread_id": "memoria-20261029-200719",
+  "pregunta": "¿Y cómo se usa?",
+  "escenario": "5a_memoria_pregunta_2",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:08:02.601-03:00",
+  "fin": "2026-10-29T20:08:10.211-03:00",
+  "duracion_s": 7.61,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:04.405-03:00",
+      "pensamiento": "Voy a buscar ejemplos de uso más completos, como requests concurrentes y cierre manual del cliente.",
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "AsyncClient concurrent requests asyncio gather example",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01HDohMEEWVh9NeDAp7fYXuB",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 3588,
+        "output_tokens": 269,
+        "total_tokens": 3857
+      }
+    },
+    {
+      "n": 2,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:04.405-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "AsyncClient close without context manager aclose",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_019FFeC7H5Qcb5e83ov2W455",
+      "observacion": null,
+      "tokens": null
+    },
+    {
+      "n": 3,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:05.190-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01HDohMEEWVh9NeDAp7fYXuB",
+      "observacion": "3 fragmento(s) relevante(s) para 'AsyncClient concurrent requests asyncio gather example':\n\n[ID: authentication-p1-c3] similitud=0.66 | fuente=data/avanzado/authentication.md\n```\n\nIf you _do_ need to perform I/O other than HTTP requests, such as accessing a disk-based cache, or you need to use concurrency primitives, such as locks, then you should override `.sync_auth_flow()` and `.async_auth_flow()` (instead of `.auth_flow()`). The former will be used by `httpx.Client`, while the latter will be used by `httpx.AsyncClient`.\n\n```python\nimport asyncio\nimport threading\nimport httpx\n\nclass MyCustomAuth(httpx.Auth):\n    def __init__(self):\n        self._sync_lock = threading.RLock()\n        self._async_lock = asyncio.Lock()\n\n    def sync_get_token(self):\n        with self._sync_lock:\n            ...\n\n    def sync_auth_flow(self, request):\n        token = self.sync_get...\n\n[ID: async-p1-c2] similitud=0.59 | fuente=data/async_http2/async.md\n```\n\n### Explicit transport instances\n\nWhen instantiating a transport instance directly, you need to use `httpx.AsyncHTTPTransport`.\n\nFor instance:\n\n```pycon\n>>> import httpx\n>>> transport = httpx.AsyncHTTPTransport(retries=1)\n>>> async with httpx.AsyncClient(transport=transport) as client:\n>>>     ...\n```\n\n## Supported async environments\n\nHTTPX supports either `asyncio` or `trio` as an async environment.\n\nIt will auto-detect which of those two to use as the backend\nfor socket operations and concurrency primitives.\n\n### [AsyncIO](https://docs.python.org/3/library/asyncio.html)\n\nAsyncIO is Python's [built-in library](https://docs.python.org/3/library/asyncio.html)\nfor writing concurrent code ...\n\n[ID: async-p1-c0] similitud=0.49 | fuente=data/async_http2/async.md\n# Async Support\n\nHTTPX offers a standard synchronous API by default, but also gives you\nthe option of an async client if you need it.\n\nAsync is a concurrency model that is far more efficient than multi-threading,\nand can provide significant performance benefits and enable the use of\nlong-lived network connections such as WebSockets.\n\nIf you're working with an async web framework then you'll also want to use an\nasync client for sending outgoing HTTP requests.\n\n## Making Async requests\n\nTo make asynchronous requests, you'll need an `AsyncClient`.\n\n```pycon\n>>> async with httpx.AsyncClient() as client:\n...     r = await client.get('https://www.example.com/')\n...\n>>> r\n<Response [200 OK]>\n```\n\n!...",
+      "tokens": null
+    },
+    {
+      "n": 4,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:05.190-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_019FFeC7H5Qcb5e83ov2W455",
+      "observacion": "INFORMACIÓN INCOMPLETA: ningún fragmento es relevante para 'AsyncClient close without context manager aclose' (mejor similitud 0.34, umbral 0.45). Probá reformular la consulta en inglés con otros términos técnicos, o pedile al usuario que aclare qué necesita.",
+      "tokens": null
+    },
+    {
+      "n": 5,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:08:06.864-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "close the async client aclose",
+        "limit": 2
+      },
+      "tool_call_id": "toolu_01KHd3Skd1EvcgbauEYiSDvk",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 4962,
+        "output_tokens": 199,
+        "total_tokens": 5161
+      }
+    },
+    {
+      "n": 6,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:07.115-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01KHd3Skd1EvcgbauEYiSDvk",
+      "observacion": "INFORMACIÓN INCOMPLETA: ningún fragmento es relevante para 'close the async client aclose' (mejor similitud 0.36, umbral 0.45). Probá reformular la consulta en inglés con otros términos técnicos, o pedile al usuario que aclare qué necesita.",
+      "tokens": null
+    },
+    {
+      "n": 7,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:08:10.211-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 5268,
+        "output_tokens": 536,
+        "total_tokens": 5804
+      }
+    }
+  ],
+  "respuesta_final": "El uso básico de `AsyncClient` es siempre dentro de una corrutina `async def`, creando el cliente con `async with` y llamando a los métodos con `await`:\n\n```python\nimport asyncio\nimport httpx\n\nasync def main():\n    async with httpx.AsyncClient() as client:\n        r = await client.get(\"https://www.example.com/\")\n        print(r.status_code)\n        print(r.text[:100])\n\nasyncio.run(main())\n```\n\nLos métodos son los mismos que en `Client` (`get`, `post`, `put`, `delete`, etc.), pero cada uno se espera con `await`. [async-p1-c0]\n\n**Configuración:** podés pasarle los mismos argumentos que al cliente síncrono, como `http2=True` o un transporte propio. Si creás el transporte a mano, en la versión async tenés que usar `httpx.AsyncHTTPTransport`:\n\n```python\ntransport = httpx.AsyncHTTPTransport(retries=1)\nasync with httpx.AsyncClient(transport=transport) as client:\n    ...\n```\n[async-p1-c2]\n\n**Entornos:** httpx soporta `asyncio` y `trio`, y detecta automáticamente cuál usar. [async-p1-c2]\n\nNo encontré en la documentación indexada ejemplos de requests concurrentes con `asyncio.gather` ni de cerrar el cliente manualmente con `aclose()`, así que no te puedo confirmar esos detalles desde la fuente. Si necesitás eso, podés consultar la documentación oficial de httpx o reformular la pregunta con más contexto.",
+  "herramientas_usadas": [
+    "buscar_documentacion",
+    "buscar_documentacion",
+    "buscar_documentacion"
+  ],
+  "tokens_totales": {
+    "input_tokens": 13818,
+    "output_tokens": 1004,
+    "total_tokens": 14822
+  }
+}

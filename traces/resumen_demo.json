@@ -1,0 +1,116 @@
+{
+  "corrida": "20261029-200719",
+  "escenarios": [
+    {
+      "escenario": "1_usa_herramienta",
+      "thread_id": "esc1-20261029-200719",
+      "mensaje": "¿Cómo hago requests asíncronas con httpx?",
+      "herramientas": [
+        "buscar_documentacion",
+        "obtener_fragmento"
+      ],
+      "estado": "completo",
+      "traza": "traces/1_usa_herramienta_20261029-200719.json",
+      "respuesta": "Para hacer requests asíncronas en httpx usás `httpx.AsyncClient` junto con `async`/`await` [async-p1-c0].\n\n```python\nimport asyncio\nimport httpx\n\nasync def main():\n    async with httpx.AsyncClient() as client:\n        r = await client.get(\"https://www.example.com/\")\n        print(r.status_code)\n\nasyncio.run(main())\n```\n\nAlgunos puntos clave:\n\n- **Métodos async:** `get`, `post`, `put`, `patch`, `delete`, `head`, `options`, `request` y `send` se llaman con `await` [async-p1-c0].\n- **Context manager:** `async with httpx.AsyncClient()` cierra las conexiones al salir del bloque. Si preferís cerrarlo a mano, usá `await client.aclose()` [async-p1-c0].\n- **Reutilizá el cliente:** para aprovechar el pool de conexiones, no crees un cliente dentro de un bucle caliente; usá uno solo y pasalo por donde haga falta [async-p1-c0].\n- **Streaming:** `client.stream(...)` es un bloque `async with`, y leés el cuerpo con `async for chunk in response.aiter_bytes()` [async-p1-c0].\n- **Concurrencia:** como las requests son asíncronas, podés lanzar varias a la vez con `asyncio.gather`, que es donde el modelo async más conviene.\n- **Backends:** httpx soporta `asyncio` y `trio`, y detecta automáticamente cuál usar [async-p1-c2].\n- **HTTP/2:** podés activarlo con `httpx.AsyncClient(http2=True)` [http2-p1-c1]."
+    },
+    {
+      "escenario": "2_sin_herramienta",
+      "thread_id": "esc2-20261029-200719",
+      "mensaje": "¡Hola! ¿Quién sos y en qué me podés ayudar?",
+      "herramientas": [],
+      "estado": "completo",
+      "traza": "traces/2_sin_herramienta_20261029-200735.json",
+      "respuesta": "¡Hola! Soy un asistente técnico especializado en **httpx**, la librería HTTP para Python. Respondo preguntas usando su documentación oficial.\n\nTe puedo ayudar con cosas como:\n\n- **Uso básico**: hacer requests GET, POST, enviar headers, parámetros y datos.\n- **Clientes**: cuándo usar `Client` o `AsyncClient` y cómo manejarlos.\n- **Async**: escribir código asíncrono con httpx.\n- **Timeouts, proxies y autenticación**.\n- **HTTP/2, streaming y manejo de excepciones**.\n\nContame qué estás intentando hacer con httpx y lo vemos paso a paso."
+    },
+    {
+      "escenario": "3_multi_paso",
+      "thread_id": "esc3-20261029-200719",
+      "mensaje": "Buscá cómo se habilita HTTP/2 en httpx y después mostrame el texto completo del fragmento más relevante.",
+      "herramientas": [
+        "buscar_documentacion",
+        "obtener_fragmento"
+      ],
+      "estado": "completo",
+      "traza": "traces/3_multi_paso_20261029-200739.json",
+      "respuesta": "Para habilitar HTTP/2 en httpx hay que hacer dos cosas: instalar la dependencia opcional y pasar `http2=True` al cliente. Por defecto viene desactivado, porque HTTP/1.1 se considera la opción más robusta por ahora [http2-p1-c0].\n\nInstalación:\n\n```shell\n$ pip install httpx[http2]\n```\n\nUso:\n\n```python\nclient = httpx.AsyncClient(http2=True)\n...\n\nasync with httpx.AsyncClient(http2=True) as client:\n    ...\n```\n\nEl fragmento más relevante completo es el de [http2-p1-c0], que es el que te transcribí arriba. Según la documentación, HTTP/2 conviene sobre todo cuando hacés muchas requests concurrentes."
+    },
+    {
+      "escenario": "4a_reintento_id_invalido",
+      "thread_id": "esc4a-20261029-200719",
+      "mensaje": "Mostrame el fragmento async-p7-c0 de la documentación.",
+      "herramientas": [
+        "obtener_fragmento",
+        "obtener_fragmento"
+      ],
+      "estado": "completo",
+      "traza": "traces/4a_reintento_id_invalido_20261029-200744.json",
+      "respuesta": "No existe `async-p7-c0` en la base: el documento `async` solo tiene tres fragmentos (`async-p1-c0`, `async-p1-c1` y `async-p1-c2`). Como alternativa te muestro `async-p1-c0`, que es el fragmento inicial de la página de soporte async [async-p1-c0].\n\nTrata de cómo usar el cliente asíncrono:\n\n- Para hacer requests necesitás un `AsyncClient` y `await` en cada método (`get`, `post`, `request`, `send`, etc.).\n- Lo recomendado es usar `async with httpx.AsyncClient() as client:`. Si preferís cerrarlo a mano, usás `await client.aclose()`.\n- Para hacer streaming, `client.stream(...)` es un bloque `async with`, y adentro se itera con `async for chunk in response.aiter_bytes()`.\n- Hay un warning importante: para aprovechar el connection pooling no conviene crear un cliente nuevo dentro de un bucle. Mejor compartir un único cliente con alcance acotado o global.\n\nSi necesitás el contenido de otro fragmento, pasame el ID exacto de los que existen (`async-p1-c1` o `async-p1-c2`) o decime qué tema buscás y lo busco."
+    },
+    {
+      "escenario": "4b_info_incompleta",
+      "thread_id": "esc4b-20261029-200719",
+      "mensaje": "¿Cómo abro una conexión WebSocket con httpx?",
+      "herramientas": [
+        "buscar_documentacion",
+        "buscar_documentacion"
+      ],
+      "estado": "completo",
+      "traza": "traces/4b_info_incompleta_20261029-200752.json",
+      "respuesta": "No encontré nada sobre WebSocket en la documentación de httpx que tengo indexada. Hice dos búsquedas con distintos términos en inglés y ninguna superó el umbral de relevancia, así que no puedo darte un ejemplo verificado.\n\nSi querés, podés hacer alguna de estas cosas:\n\n- Decirme si buscás una conexión WebSocket con httpx en sí, o si te sirve una alternativa (por ejemplo, un paquete de terceros compatible con httpx o una librería específica de WebSocket como `websockets`).\n- Preguntarme por algo concreto de httpx que sí esté en la documentación, como clientes async, timeouts, streaming o autenticación, y lo busco."
+    },
+    {
+      "escenario": "5a_memoria_pregunta_1",
+      "thread_id": "memoria-20261029-200719",
+      "mensaje": "¿Qué es un AsyncClient en httpx?",
+      "herramientas": [
+        "buscar_documentacion"
+      ],
+      "estado": "completo",
+      "traza": "traces/5a_memoria_pregunta_1_20261029-200758.json",
+      "respuesta": "Un `AsyncClient` es la versión asíncrona del cliente de httpx. Lo usás cuando querés hacer requests HTTP sin bloquear, por ejemplo desde un framework async o cuando necesitás muchas requests concurrentes. [async-p1-c0]\n\nSe usa con `async with` y `await` para cada request:\n\n```python\nimport httpx\n\nasync with httpx.AsyncClient() as client:\n    r = await client.get(\"https://www.example.com/\")\n    print(r)  # <Response [200 OK]>\n```\n\nUsar el cliente como context manager hace que todas las conexiones se cierren al salir del bloque. [http2-p1-c1]\n\nAdemás, `AsyncClient` soporta HTTP/2 igual que `Client` (con `httpx.AsyncClient(http2=True)`), y suele ser más útil en contextos async cuando hacés muchas requests concurrentes. [http2-p1-c1]\n\nSi necesitás autenticación personalizada que haga I/O o use primitivas de concurrencia, `AsyncClient` usa `.async_auth_flow()`, mientras que `httpx.Client` usa `.sync_auth_flow()`. [authentication-p1-c3]"
+    },
+    {
+      "escenario": "5a_memoria_pregunta_2",
+      "thread_id": "memoria-20261029-200719",
+      "mensaje": "¿Y cómo se usa?",
+      "herramientas": [
+        "buscar_documentacion",
+        "buscar_documentacion",
+        "buscar_documentacion"
+      ],
+      "estado": "completo",
+      "traza": "traces/5a_memoria_pregunta_2_20261029-200802.json",
+      "respuesta": "El uso básico de `AsyncClient` es siempre dentro de una corrutina `async def`, creando el cliente con `async with` y llamando a los métodos con `await`:\n\n```python\nimport asyncio\nimport httpx\n\nasync def main():\n    async with httpx.AsyncClient() as client:\n        r = await client.get(\"https://www.example.com/\")\n        print(r.status_code)\n        print(r.text[:100])\n\nasyncio.run(main())\n```\n\nLos métodos son los mismos que en `Client` (`get`, `post`, `put`, `delete`, etc.), pero cada uno se espera con `await`. [async-p1-c0]\n\n**Configuración:** podés pasarle los mismos argumentos que al cliente síncrono, como `http2=True` o un transporte propio. Si creás el transporte a mano, en la versión async tenés que usar `httpx.AsyncHTTPTransport`:\n\n```python\ntransport = httpx.AsyncHTTPTransport(retries=1)\nasync with httpx.AsyncClient(transport=transport) as client:\n    ...\n```\n[async-p1-c2]\n\n**Entornos:** httpx soporta `asyncio` y `trio`, y detecta automáticamente cuál usar. [async-p1-c2]\n\nNo encontré en la documentación indexada ejemplos de requests concurrentes con `asyncio.gather` ni de cerrar el cliente manualmente con `aclose()`, así que no te puedo confirmar esos detalles desde la fuente. Si necesitás eso, podés consultar la documentación oficial de httpx o reformular la pregunta con más contexto."
+    },
+    {
+      "escenario": "6_recursion_limit",
+      "thread_id": "esc6-20261029-200719",
+      "mensaje": "Comparame en detalle cómo se configuran en httpx los proxies, la autenticación, los timeouts y HTTP/2.",
+      "herramientas": [
+        "buscar_documentacion",
+        "buscar_documentacion",
+        "buscar_documentacion",
+        "buscar_documentacion"
+      ],
+      "estado": "cortado_por_recursion_limit",
+      "traza": "traces/6_recursion_limit_20261029-200810.json",
+      "respuesta": "Me detuve de forma controlada: alcancé el límite de 3 pasos (recursion_limit) antes de terminar. Probá con una pregunta más concreta."
+    },
+    {
+      "escenario": "5b_memoria_tras_reiniciar_mismo_thread",
+      "thread_id": "memoria-20261029-200719",
+      "mensaje": "Recordame: ¿de qué clase de httpx estábamos hablando y qué te pregunté recién?",
+      "proceso_nuevo": true,
+      "codigo_salida": 0,
+      "respuesta": "Estábamos hablando de `httpx.AsyncClient`, la versión asíncrona del cliente de httpx.\n\nTu última pregunta fue \"¿Y cómo se usa?\". Te expliqué el uso básico con `async with` y `await`, la configuración con `http2=True` o un transporte propio (`httpx.AsyncHTTPTransport`), y los entornos soportados (`asyncio` y `trio`). No encontré en la documentación indexada nada sobre requests concurrentes con `asyncio.gather` ni sobre cerrar el cliente con `aclose()`."
+    },
+    {
+      "escenario": "5c_memoria_otro_thread",
+      "thread_id": "otro-20261029-200719",
+      "mensaje": "Recordame: ¿de qué clase de httpx estábamos hablando y qué te pregunté recién?",
+      "proceso_nuevo": true,
+      "codigo_salida": 0,
+      "respuesta": "No tengo nada registrado de una conversación anterior: este es el primer mensaje que recibo en este chat. Así que no sé qué clase de httpx estábamos viendo ni qué me preguntaste antes.\n\nSi me contás de qué querés hablar, por ejemplo `Client`, `AsyncClient`, timeouts o proxies, busco en la documentación oficial de httpx y te respondo con las referencias de los fragmentos."
+    }
+  ]
+}

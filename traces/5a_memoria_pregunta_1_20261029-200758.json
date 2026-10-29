@@ -1,0 +1,66 @@
+{
+  "thread_id": "memoria-20261029-200719",
+  "pregunta": "¿Qué es un AsyncClient en httpx?",
+  "escenario": "5a_memoria_pregunta_1",
+  "modelo": "claude-haiku-5-5",
+  "recursion_limit": 10,
+  "inicio": "2026-10-29T20:07:58.576-03:00",
+  "fin": "2026-10-29T20:08:02.597-03:00",
+  "duracion_s": 4.02,
+  "estado": "completo",
+  "pasos": [
+    {
+      "n": 1,
+      "tipo": "accion",
+      "timestamp": "2026-10-29T20:07:59.768-03:00",
+      "pensamiento": "Voy a buscar en la documentación qué es AsyncClient.",
+      "herramienta": "buscar_documentacion",
+      "argumentos": {
+        "query": "AsyncClient usage async HTTP requests",
+        "limit": 3
+      },
+      "tool_call_id": "toolu_01FSXjpNahvcyoHdcVwBG8Hs",
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 2095,
+        "output_tokens": 111,
+        "total_tokens": 2206
+      }
+    },
+    {
+      "n": 2,
+      "tipo": "observacion",
+      "timestamp": "2026-10-29T20:08:00.023-03:00",
+      "pensamiento": null,
+      "herramienta": "buscar_documentacion",
+      "argumentos": null,
+      "tool_call_id": "toolu_01FSXjpNahvcyoHdcVwBG8Hs",
+      "observacion": "3 fragmento(s) relevante(s) para 'AsyncClient usage async HTTP requests':\n\n[ID: http2-p1-c1] similitud=0.62 | fuente=data/async_http2/http2.md\n```\n\nAnd then instantiating a client with HTTP/2 support enabled:\n\n```python\nclient = httpx.AsyncClient(http2=True)\n...\n```\n\nYou can also instantiate a client as a context manager, to ensure that all\nHTTP connections are nicely scoped, and will be closed once the context block\nis exited.\n\n```python\nasync with httpx.AsyncClient(http2=True) as client:\n    ...\n```\n\nHTTP/2 support is available on both `Client` and `AsyncClient`, although it's\ntypically more useful in async contexts if you're issuing lots of concurrent\nrequests.\n\n## Inspecting the HTTP version\n\nEnabling HTTP/2 support on the client does not *necessarily* mean that your\nrequests and responses will be transported over HTTP/2, since...\n\n[ID: authentication-p1-c3] similitud=0.53 | fuente=data/avanzado/authentication.md\n```\n\nIf you _do_ need to perform I/O other than HTTP requests, such as accessing a disk-based cache, or you need to use concurrency primitives, such as locks, then you should override `.sync_auth_flow()` and `.async_auth_flow()` (instead of `.auth_flow()`). The former will be used by `httpx.Client`, while the latter will be used by `httpx.AsyncClient`.\n\n```python\nimport asyncio\nimport threading\nimport httpx\n\nclass MyCustomAuth(httpx.Auth):\n    def __init__(self):\n        self._sync_lock = threading.RLock()\n        self._async_lock = asyncio.Lock()\n\n    def sync_get_token(self):\n        with self._sync_lock:\n            ...\n\n    def sync_auth_flow(self, request):\n        token = self.sync_get...\n\n[ID: async-p1-c0] similitud=0.53 | fuente=data/async_http2/async.md\n# Async Support\n\nHTTPX offers a standard synchronous API by default, but also gives you\nthe option of an async client if you need it.\n\nAsync is a concurrency model that is far more efficient than multi-threading,\nand can provide significant performance benefits and enable the use of\nlong-lived network connections such as WebSockets.\n\nIf you're working with an async web framework then you'll also want to use an\nasync client for sending outgoing HTTP requests.\n\n## Making Async requests\n\nTo make asynchronous requests, you'll need an `AsyncClient`.\n\n```pycon\n>>> async with httpx.AsyncClient() as client:\n...     r = await client.get('https://www.example.com/')\n...\n>>> r\n<Response [200 OK]>\n```\n\n!...",
+      "tokens": null
+    },
+    {
+      "n": 3,
+      "tipo": "respuesta_final",
+      "timestamp": "2026-10-29T20:08:02.597-03:00",
+      "pensamiento": null,
+      "herramienta": null,
+      "argumentos": null,
+      "tool_call_id": null,
+      "observacion": null,
+      "tokens": {
+        "input_tokens": 3116,
+        "output_tokens": 457,
+        "total_tokens": 3573
+      }
+    }
+  ],
+  "respuesta_final": "Un `AsyncClient` es la versión asíncrona del cliente de httpx. Lo usás cuando querés hacer requests HTTP sin bloquear, por ejemplo desde un framework async o cuando necesitás muchas requests concurrentes. [async-p1-c0]\n\nSe usa con `async with` y `await` para cada request:\n\n```python\nimport httpx\n\nasync with httpx.AsyncClient() as client:\n    r = await client.get(\"https://www.example.com/\")\n    print(r)  # <Response [200 OK]>\n```\n\nUsar el cliente como context manager hace que todas las conexiones se cierren al salir del bloque. [http2-p1-c1]\n\nAdemás, `AsyncClient` soporta HTTP/2 igual que `Client` (con `httpx.AsyncClient(http2=True)`), y suele ser más útil en contextos async cuando hacés muchas requests concurrentes. [http2-p1-c1]\n\nSi necesitás autenticación personalizada que haga I/O o use primitivas de concurrencia, `AsyncClient` usa `.async_auth_flow()`, mientras que `httpx.Client` usa `.sync_auth_flow()`. [authentication-p1-c3]",
+  "herramientas_usadas": [
+    "buscar_documentacion"
+  ],
+  "tokens_totales": {
+    "input_tokens": 5211,
+    "output_tokens": 568,
+    "total_tokens": 5779
+  }
+}
